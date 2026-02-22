@@ -1,0 +1,27 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: "LibrarySystem"
+  devtools:
+    add-properties: false
+  r2dbc:
+    url: "r2dbc:postgresql://localhost:5432/library-system"
+    username: "postgres"
+    password: 1234
+  profiles:
+    include: null
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,prometheus"
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    circuitbreakers:
+      enabled: false
+cors:
+  allowed-origins: "http://localhost:4200,http://localhost:8080"
