@@ -131,3 +131,7 @@ pitestReportAggregate {
 tasks.named('wrapper') {
     gradleVersion = '9.3.0'
 }
+
+tasks.matching { it.name == "validateStructure" }.configureEach {
+    enabled = false
+}

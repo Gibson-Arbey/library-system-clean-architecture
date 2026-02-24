@@ -11,7 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Getter
 @Setter
 @Builder
-@Table("books")
+@Table("bookcopies")
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookCopyEntity {

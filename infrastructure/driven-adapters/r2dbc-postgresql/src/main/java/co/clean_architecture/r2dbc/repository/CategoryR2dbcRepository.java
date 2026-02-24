@@ -11,8 +11,8 @@ public interface CategoryR2dbcRepository extends ReactiveCrudRepository<Category
     @Query("""
         SELECT EXISTS (
             SELECT 1
-            FROM category
-            WHERE name = :name
+            FROM categories
+            WHERE cate_name = :name
         )
     """)
     Mono<Boolean> existsByName(@Param("name") String name);
@@ -20,8 +20,8 @@ public interface CategoryR2dbcRepository extends ReactiveCrudRepository<Category
     @Query("""
         SELECT EXISTS (
             SELECT 1
-            FROM book b
-            WHERE b.category_id = :id
+            FROM books b
+            WHERE b.cate_id = :id
         )
     """)
     Mono<Boolean> categoryInUse(@Param("id") Long id);

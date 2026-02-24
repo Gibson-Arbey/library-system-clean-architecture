@@ -12,11 +12,11 @@ public class CategoryRouter {
     @Bean
     public RouterFunction<ServerResponse> routes(CategoryHandler handler) {
         return RouterFunctions.route()
-            .POST("/category", handler::createCategory)
-            .GET("/category/{id}", handler::getCategoryById)
-            .GET("/category", handler::getAllCategories)
-            .PUT("/category/{id}", handler::updateCategory)
-            .DELETE("/categoriy/{id}", handler::deleteCategory)
+            .POST("/api/v1/category", handler::createCategory)
+            .GET("/api/v1/category/{id}", handler::getCategoryById)
+            .GET("/api/v1/category", handler::getAllCategories)
+            .PUT("/api/v1/category/{id}", handler::updateCategory)
+            .DELETE("/api/v1/categoriy/{id}", handler::deleteCategory)
             .build();
 
     }
