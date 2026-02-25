@@ -57,4 +57,9 @@ public class CategoryAdapter implements CategoryRepository {
     public Mono<Boolean> categoryInUse(Long id) {
         return categoryR2dbcRepository.categoryInUse(id);
     }
+
+    @Override
+    public Mono<Boolean> existsById(Long id) {
+        return categoryR2dbcRepository.existsById(id);
+    }
 }

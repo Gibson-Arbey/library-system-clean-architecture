@@ -17,4 +17,7 @@ public interface CategoryRepository {
     Mono<Boolean> existsByName(String name);
 
     Mono<Boolean> categoryInUse(Long id);
+
+    Mono<Boolean> existsById(Long id);
+
 }

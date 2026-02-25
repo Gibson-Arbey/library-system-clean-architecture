@@ -15,6 +15,7 @@ public class BookCopyMapper {
         return BookCopyEntity.builder()
             .id(bookCopy.getId())
             .bookId(bookCopy.getBookId())
+            .barcode(bookCopy.getBarcode())
             .status(bookCopy.getStatus().name())
             .createdDate(bookCopy.getCreatedDate())
             .build();
