@@ -10,7 +10,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 public class CategoryRouter {
 
     @Bean
-    public RouterFunction<ServerResponse> routes(CategoryHandler handler) {
+    public RouterFunction<ServerResponse> categoriesRoutes(CategoryHandler handler) {
         return RouterFunctions.route()
             .POST("/api/v1/category", handler::createCategory)
             .GET("/api/v1/category/{id}", handler::getCategoryById)

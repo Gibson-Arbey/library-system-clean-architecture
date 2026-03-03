@@ -21,12 +21,13 @@ public class CreateBookWithCopiesUseCase {
     public Mono<Book> execute(CreateBookCommand command) {
 
         return categoryRepository.existsById(command.categoryId())
+            .filter(Boolean::booleanValue)
+            .switchIfEmpty(Mono.error(
+                new CategoryNotFoundException(
+                    "Category with id '" + command.categoryId() + "' does not exist"
+                )
+            ))
             .flatMap(exists -> {
-                if (!exists) {
-                    return Mono.error(
-                        new CategoryNotFoundException("Category with id '" + command.categoryId() + "' does not exist")
-                    );
-                }
                 Book book = Book.create(
                     command.title(),
                     command.author(),

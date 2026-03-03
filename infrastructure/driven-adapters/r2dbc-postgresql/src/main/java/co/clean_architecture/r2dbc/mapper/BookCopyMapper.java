@@ -21,7 +21,7 @@ public class BookCopyMapper {
             .build();
     }
 
-    public  BookCopy toEntity(BookCopyEntity bookCopyEntity) {
+    public  BookCopy toDomain(BookCopyEntity bookCopyEntity) {
         if (bookCopyEntity == null) {
             return null;
         }

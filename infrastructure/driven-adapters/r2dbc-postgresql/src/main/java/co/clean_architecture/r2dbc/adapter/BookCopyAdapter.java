@@ -18,7 +18,10 @@ public class BookCopyAdapter implements BookCopyRepository {
 
     @Override
     public Flux<BookCopy> saveAll(Flux<BookCopy> bookCopies) {
-        return null;
+        return bookCopies
+            .map(bookCopyMapper::toEntity)
+            .as(bookCopyR2dbcRepository::saveAll)
+            .map(bookCopyMapper::toDomain);
     }
 
     @Override
