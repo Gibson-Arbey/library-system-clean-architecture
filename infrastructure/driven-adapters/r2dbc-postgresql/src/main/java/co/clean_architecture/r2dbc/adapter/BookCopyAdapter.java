@@ -26,16 +26,22 @@ public class BookCopyAdapter implements BookCopyRepository {
 
     @Override
     public Flux<BookCopy> findAllByBookId(Long bookId) {
-        return null;
+        return bookCopyR2dbcRepository
+            .findAllByBookId(bookId)
+            .map(bookCopyMapper::toDomain);
     }
 
     @Override
-    public Flux<BookCopy> findAllByBookIdAndAvailableTrue(Long bookId) {
-        return null;
+    public Flux<BookCopy> findAllByBookIdAndStatus(Long bookId, String status) {
+        return bookCopyR2dbcRepository
+            .findAllByBookIdAndStatus(bookId, status)
+            .map(bookCopyMapper::toDomain);
     }
 
     @Override
     public Mono<BookCopy> findById(Long id) {
-        return null;
+        return bookCopyR2dbcRepository
+            .findById(id)
+            .map(bookCopyMapper::toDomain);
     }
 }

@@ -10,7 +10,7 @@ public interface BookCopyRepository {
 
     Flux<BookCopy> findAllByBookId(Long bookId);
 
-    Flux<BookCopy> findAllByBookIdAndAvailableTrue(Long bookId);
+    Flux<BookCopy> findAllByBookIdAndStatus(Long bookId, String status);
 
     Mono<BookCopy> findById(Long id);
 }

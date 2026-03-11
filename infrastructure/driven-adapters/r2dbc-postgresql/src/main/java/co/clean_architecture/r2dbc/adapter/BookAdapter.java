@@ -28,7 +28,23 @@ public class BookAdapter implements BookRepository {
 
     @Override
     public Flux<Book> findAllByCriteria(BookCriteria criteria) {
-        return null;
+
+        int offset = criteria.getPage() * criteria.getPageSize();
+
+        return bookR2dbcRepository
+                .findAllByFilters(
+                        criteria.getTitle(),
+                        criteria.getAuthor(),
+                        criteria.getIsbn(),
+                        criteria.getApplyFilterPublicationYear(),
+                        criteria.getPublicationYear(),
+                        criteria.getPublisher(),
+                        criteria.getApplyFilterCategoryIds(),
+                        criteria.getCategoryIds(),
+                        criteria.getPageSize(),
+                        offset
+                )
+                .map(bookMapper::toDomain);
     }
 
     @Override

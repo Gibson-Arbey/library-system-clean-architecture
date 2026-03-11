@@ -14,6 +14,7 @@ public class BookRouter {
         return RouterFunctions.route()
                 .POST("/api/v1/book", handler::createBookWithCopies)
                 .POST("/api/v1/book/copy/{id}", handler::createBookCopies)
+                .GET("/api/v1/book", handler::getAllBooksWithCopies)
                 .build();
 
     }
