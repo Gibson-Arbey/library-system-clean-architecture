@@ -12,10 +12,10 @@ public interface BookR2dbcRepository extends ReactiveCrudRepository<BookEntity, 
 
     @Query("""
         SELECT *
-        FROM book
+        FROM books
         WHERE (:title = '' OR LOWER(book_title) LIKE LOWER(CONCAT('%', :title, '%')))
         AND (:author = '' OR LOWER(book_author) LIKE LOWER(CONCAT('%', :author, '%')))
-        AND (:isbn = '' OR book_isbn = :isbn)
+        AND (:isbn = '' OR LOWER(book_isbn) LIKE LOWER(CONCAT('%', :isbn, '%')))
         AND (:publisher = '' OR LOWER(book_publisher) LIKE LOWER(CONCAT('%', :publisher, '%')))
         AND (:applyFilterPublicationYear = false OR book_publicationyear IN (:publicationYears))
         AND (:applyFilterCategoryIds = false OR cate_id IN (:categoryIds))
@@ -25,9 +25,9 @@ public interface BookR2dbcRepository extends ReactiveCrudRepository<BookEntity, 
         @Param("title") String title,
         @Param("author") String author,
         @Param("isbn") String isbn,
+        @Param("publisher") String publisher,
         @Param("applyFilterPublicationYear") boolean applyFilterPublicationYear,
         @Param("publicationYears") List<Integer> publicationYears,
-        @Param("publisher") String publisher,
         @Param("applyFilterCategoryIds") boolean applyFilterCategoryIds,
         @Param("categoryIds") List<Long> categoryIds,
         @Param("pageSize") int pageSize,

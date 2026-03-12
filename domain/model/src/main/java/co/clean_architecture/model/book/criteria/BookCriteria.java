@@ -3,6 +3,7 @@ package co.clean_architecture.model.book.criteria;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
@@ -36,16 +37,16 @@ public class BookCriteria {
         if (isbn == null) {
             isbn = "";
         }
-        if (publicationYear == null) {
+        if (publicationYear == null || publicationYear.isEmpty()) {
             applyFilterPublicationYear = false;
-            publicationYear = List.of(-1);
+            publicationYear = List.of(0);
         }
         if (publisher == null) {
             publisher = "";
         }
-        if (categoryIds == null) {
+        if (categoryIds == null || categoryIds.isEmpty()) {
             applyFilterCategoryIds = false;
-            categoryIds = List.of(-1L);
+            categoryIds = List.of(0L);
         }
         if (page == null) {
             page = 0;
