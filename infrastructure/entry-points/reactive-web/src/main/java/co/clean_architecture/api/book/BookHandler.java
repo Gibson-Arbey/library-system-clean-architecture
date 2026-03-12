@@ -12,6 +12,7 @@ import co.clean_architecture.usecase.book.AddBookCopyUseCase;
 import co.clean_architecture.usecase.book.CreateBookWithCopiesUseCase;
 import co.clean_architecture.usecase.book.GetAllBookWithCopiesUseCase;
 import co.clean_architecture.usecase.book.command.CreateBookCopyCommand;
+import co.clean_architecture.usecase.book.query.DeleteBookWithCopiesUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,7 @@ public class BookHandler {
     private final CreateBookWithCopiesUseCase createBookWithCopiesUseCase;
     private final AddBookCopyUseCase addBookCopyUseCase;
     private final GetAllBookWithCopiesUseCase getAllBookWithCopiesUseCase;
+    private final DeleteBookWithCopiesUseCase deleteBookWithCopiesUseCase;
 
     // mappers
     private final CreateBookRequestMapper createBookRequestMapper;
@@ -88,6 +90,12 @@ public class BookHandler {
                 .flatMap(response ->
                         ServerResponse.ok().bodyValue(response)
                 );
+    }
+
+    public Mono<ServerResponse> deleteBookWithCopies(ServerRequest request) {
+        Long id = Long.valueOf(request.pathVariable("id"));
+        return deleteBookWithCopiesUseCase.execute(id)
+                .then(ServerResponse.noContent().build());
     }
 
     private Mono<ServerResponse> toResponse(Book book, HttpStatus status) {

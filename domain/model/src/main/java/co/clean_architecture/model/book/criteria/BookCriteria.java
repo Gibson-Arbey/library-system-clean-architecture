@@ -3,7 +3,6 @@ package co.clean_architecture.model.book.criteria;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter

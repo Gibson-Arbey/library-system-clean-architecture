@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class BookCopyAdapter implements BookCopyRepository {
@@ -43,5 +45,18 @@ public class BookCopyAdapter implements BookCopyRepository {
         return bookCopyR2dbcRepository
             .findById(id)
             .map(bookCopyMapper::toDomain);
+    }
+
+    @Override
+    public Mono<Boolean> existsAllCopiesByStatusInAndBookId(List<String> status, Long bookId) {
+        return bookCopyR2dbcRepository.existsAllCopiesByStatusInAndBookId(status, bookId);
+    }
+
+    @Override
+    public Mono<Void> deleteAllByBookId(Long bookId) {
+        return bookCopyR2dbcRepository
+            .findAllByBookId(bookId)
+            .flatMap(bookCopy -> bookCopyR2dbcRepository.deleteById(bookCopy.getId()))
+            .then();
     }
 }
