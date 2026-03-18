@@ -1,5 +1,7 @@
 package co.clean_architecture.model.user;
 
+import co.clean_architecture.model.user.exception.InvalidMailException;
+
 public class Mail {
 
     private static final String EMAIL_REGEX =
@@ -9,10 +11,10 @@ public class Mail {
 
     public Mail(String value) {
         if (value == null || value.isBlank()) {
-            throw new InvalidEmailException("Email must not be empty");
+            throw new InvalidMailException("Email must not be empty");
         }
         if (!value.matches(EMAIL_REGEX)) {
-            throw new InvalidEmailException("Invalid email format");
+            throw new InvalidMailException("Invalid email format");
         }
         this.value = value;
     }

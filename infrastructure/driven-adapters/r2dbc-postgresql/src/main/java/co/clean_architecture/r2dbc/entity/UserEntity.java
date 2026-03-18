@@ -25,11 +25,14 @@ public class UserEntity {
     @Column("user_password")
     private String password;
 
-    @Column("user_email")
-    private String email;
+    @Column("user_mail")
+    private String mail;
 
     @Column("user_status")
     private String status;
+
+    @Column("role_id")
+    private Long roleId;
 
     @Column("user_createddate")
     private LocalDateTime createdDate;

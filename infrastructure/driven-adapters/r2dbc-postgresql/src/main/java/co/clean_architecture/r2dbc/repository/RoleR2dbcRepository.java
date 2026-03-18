@@ -7,7 +7,7 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Set;
+import java.util.List;
 
 public interface RoleR2dbcRepository extends ReactiveCrudRepository<RoleEntity, Long> {
 
@@ -15,5 +15,5 @@ public interface RoleR2dbcRepository extends ReactiveCrudRepository<RoleEntity, 
     Mono<RoleEntity> findByName(@Param("name") String name);
 
     @Query("SELECT * FROM roles WHERE role_name IN (:names)")
-    Flux<RoleEntity> findAllByNameIn(@Param("names") Set<String> names);
+    Flux<RoleEntity> findAllByNameIn(@Param("names") List<String> names);
 }
