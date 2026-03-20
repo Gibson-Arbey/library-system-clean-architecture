@@ -10,4 +10,8 @@ public interface UserRepository {
     Mono<Boolean> existsByEmail(String email);
 
     Mono<Boolean> existsByUsername(String username);
+
+    Mono<User> findByUsername(String username);
+
+    Mono<Boolean> userStatusIsActive(Long id);
 }

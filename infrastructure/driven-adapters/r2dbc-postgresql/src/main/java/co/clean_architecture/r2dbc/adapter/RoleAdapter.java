@@ -19,6 +19,13 @@ public class RoleAdapter implements RoleRepository {
     private final RoleMapper roleMapper;
 
     @Override
+    public Mono<Role> findById(Long id) {
+        return roleR2dbcRepository
+            .findById(id)
+            .map(roleMapper::toEntity);
+    }
+
+    @Override
     public Mono<Role> findByName(String name) {
         return roleR2dbcRepository
             .findByName(name)

@@ -31,4 +31,16 @@ public class UserAdapter implements UserRepository {
     public Mono<Boolean> existsByUsername(String username) {
         return userR2dbcRepository.existsByUsername(username);
     }
+
+    @Override
+    public Mono<User> findByUsername(String username) {
+        return userR2dbcRepository
+            .findByUsername(username)
+            .map(userMapper::toDomain);
+    }
+
+    @Override
+    public Mono<Boolean> userStatusIsActive(Long id) {
+        return userR2dbcRepository.userStatusIsActive(id);
+    }
 }
