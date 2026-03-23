@@ -12,7 +12,7 @@ public interface UserR2dbcRepository extends ReactiveCrudRepository<UserEntity, 
         SELECT EXISTS (
             SELECT 1
             FROM users
-            WHERE email = :email
+            WHERE user_mail = :email
         )
     """)
     Mono<Boolean> existsByEmail(String email);

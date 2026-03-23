@@ -8,6 +8,5 @@ CREATE TABLE users (
     role_id BIGINT NOT NULL,
     CONSTRAINT users_ukey_email UNIQUE (user_mail),
     CONSTRAINT users_ukey_username UNIQUE (user_username),
-    CONSTRAINT users_pkey PRIMARY KEY (user_id),
     CONSTRAINT users_role_fkey FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );

@@ -29,7 +29,7 @@ public class CreateUserUseCase {
                         return Mono.error(new UsernameAlreadyExistsException("Username already exists"));
                     }
 
-                    return userRepository.existsByEmail(command.email());
+                    return userRepository.existsByEmail(command.mail());
                 })
                 .flatMap(existsEmail -> {
                     if (existsEmail) {
@@ -42,7 +42,7 @@ public class CreateUserUseCase {
                 .flatMap(role -> {
 
                     // Validaciones de dominio
-                    Mail mail = new Mail(command.email());
+                    Mail mail = new Mail(command.mail());
                     PasswordPolicy.validate(command.password());
 
                     // Encode password (puede ser costoso)

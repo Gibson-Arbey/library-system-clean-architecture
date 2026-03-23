@@ -13,7 +13,9 @@ public class PasswordPolicy {
             throw new InvalidPasswordException("Password must not be empty");
         }
         if (!rawPassword.matches(PASSWORD_REGEX)) {
-            throw new InvalidPasswordException("Password does not meet security requirements");
+            throw new InvalidPasswordException(
+                    "Password must meet the following requirements: minimum 8 characters, include uppercase and lowercase letters, at least one number, and one special character (@$!%*?&#._-)."
+            );
         }
     }
 }

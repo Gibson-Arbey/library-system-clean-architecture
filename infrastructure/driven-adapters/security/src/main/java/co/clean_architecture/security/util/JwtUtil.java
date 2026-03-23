@@ -18,12 +18,12 @@ public class JwtUtil {
         this.algorithm = Algorithm.HMAC256(securityConstant.getJwtKeyPrivate());
     }
 
-    public String createToken(String username, Long userId, String roles) {
+    public String createToken(String username, Long userId, String role) {
         return JWT.create()
                 .withIssuer(securityConstant.getJwtUserGenerator())
                 .withSubject(username)
                 .withClaim("userId", userId)
-                .withClaim("role", "ROLE_" + roles)
+                .withClaim("role", "ROLE_" + role)
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + securityConstant.getJwtExpiration()))
                 .sign(algorithm);

@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .accessDeniedHandler(jwtAccessDeniedHandler)
                 )
                 .authorizeExchange(auth -> auth
-                        .pathMatchers("/api/v1/auth/login").permitAll()
+                        .pathMatchers("/api/v1/auth/login", "/api/v1/user").permitAll()
                         .anyExchange().authenticated()
                 )
                 .addFilterAt(jwtAuthenticationFilter, AUTHENTICATION)
