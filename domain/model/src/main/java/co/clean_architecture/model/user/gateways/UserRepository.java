@@ -14,4 +14,10 @@ public interface UserRepository {
     Mono<User> findByUsername(String username);
 
     Mono<Boolean> userStatusIsActive(Long id);
+
+    Mono<User> findById(Long id);
+
+    Mono<Boolean> existsById(Long id);
+
+    Mono<Void> updateUserStatus(Long id, String status);
 }

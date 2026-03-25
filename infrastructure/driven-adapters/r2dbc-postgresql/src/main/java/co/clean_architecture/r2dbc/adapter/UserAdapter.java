@@ -6,6 +6,7 @@ import co.clean_architecture.r2dbc.mapper.UserMapper;
 import co.clean_architecture.r2dbc.repository.UserR2dbcRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
 @Repository
@@ -42,5 +43,21 @@ public class UserAdapter implements UserRepository {
     @Override
     public Mono<Boolean> userStatusIsActive(Long id) {
         return userR2dbcRepository.userStatusIsActive(id);
+    }
+
+    @Override
+    public Mono<User> findById(Long id) {
+        return userR2dbcRepository.findById(id).map(userMapper::toDomain);
+    }
+
+    @Override
+    public Mono<Boolean> existsById(Long id) {
+        return userR2dbcRepository.existsById(id);
+    }
+
+    @Override
+    @Transactional
+    public Mono<Void> updateUserStatus(Long id, String status) {
+        return userR2dbcRepository.updateUserStatus(id, status);
     }
 }

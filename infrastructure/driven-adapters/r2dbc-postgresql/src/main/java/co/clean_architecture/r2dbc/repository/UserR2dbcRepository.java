@@ -42,4 +42,14 @@ public interface UserR2dbcRepository extends ReactiveCrudRepository<UserEntity, 
         )
     """)
     Mono<Boolean> userStatusIsActive(@Param("id") Long id);
+
+    @Query("""
+        UPDATE users
+        SET user_status = :status
+        WHERE user_id = :id
+    """)
+    Mono<Void> updateUserStatus(
+        @Param("id") Long id,
+        @Param("status") String status
+    );
 }
