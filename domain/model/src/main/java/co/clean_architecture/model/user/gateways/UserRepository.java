@@ -1,6 +1,8 @@
 package co.clean_architecture.model.user.gateways;
 
 import co.clean_architecture.model.user.User;
+import co.clean_architecture.model.user.criteria.UserCriteria;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface UserRepository {
@@ -17,7 +19,11 @@ public interface UserRepository {
 
     Mono<User> findById(Long id);
 
-    Mono<Boolean> existsById(Long id);
-
     Mono<Void> updateUserStatus(Long id, String status);
+
+    Mono<Boolean> usernameHasOccupied(Long id,  String username);
+
+    Mono<Boolean> mailHasOccupied(Long id, String email);
+
+    Flux<User> findByFilters(UserCriteria criteria);
 }

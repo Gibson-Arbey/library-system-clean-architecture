@@ -5,7 +5,7 @@ import co.clean_architecture.usecase.user.command.UpdateUserStatusCommand;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UpdateUserStatusMapper {
+public class UpdateUserStatusRequestMapper {
 
     public UpdateUserStatusCommand toCommand(UpdateUserStatusRequest request) {
         return new UpdateUserStatusCommand(request.getId(), request.getStatus());

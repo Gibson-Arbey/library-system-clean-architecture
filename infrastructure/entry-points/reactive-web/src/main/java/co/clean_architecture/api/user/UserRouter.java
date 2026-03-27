@@ -16,6 +16,7 @@ public class UserRouter {
                 .POST("/api/v1/user", userHandler::createUser)
                 .GET("/api/v1/user/{id}", userHandler::getUserById)
                 .PATCH("/api/v1/user/status", userHandler::updateUserStatus)
+                .PUT("/api/v1/user/{id}", userHandler::updateUser)
                 .build();
     }
 }

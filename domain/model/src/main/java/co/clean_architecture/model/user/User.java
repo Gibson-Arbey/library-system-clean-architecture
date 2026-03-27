@@ -47,6 +47,18 @@ public class User {
         );
     }
 
+    public User update(String username, Password password, Mail mail) {
+        return User.restore(
+                this.id,
+                username != null ? username : this.username,
+                password != null ? password : this.password,
+                mail != null ? mail : this.mail,
+                this.status,
+                this.roleId,
+                this.createdDate
+        );
+    }
+
     public Long getId() {
         return id;
     }

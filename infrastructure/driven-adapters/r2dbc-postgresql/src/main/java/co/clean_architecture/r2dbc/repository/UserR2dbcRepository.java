@@ -52,4 +52,28 @@ public interface UserR2dbcRepository extends ReactiveCrudRepository<UserEntity, 
         @Param("id") Long id,
         @Param("status") String status
     );
+
+    @Query("""
+        SELECT EXISTS (
+            SELECT 1
+            FROM users
+            WHERE id != :id AND user_username = :username
+        )
+    """)
+    Mono<Boolean> usernameHasOccupied(
+        @Param("id") Long id,
+        @Param("username") String username
+    );
+
+    @Query("""
+        SELECT EXISTS (
+            SELECT 1
+            FROM users
+            WHERE id != :id AND user_mail = :email
+        )
+    """)
+    Mono<Boolean> mailHasOccupied(
+        @Param("id") Long id,
+        @Param("email") String email
+    );
 }

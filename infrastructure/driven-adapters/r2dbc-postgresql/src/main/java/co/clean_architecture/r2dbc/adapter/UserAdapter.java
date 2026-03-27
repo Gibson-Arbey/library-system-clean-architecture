@@ -1,12 +1,14 @@
 package co.clean_architecture.r2dbc.adapter;
 
 import co.clean_architecture.model.user.User;
+import co.clean_architecture.model.user.criteria.UserCriteria;
 import co.clean_architecture.model.user.gateways.UserRepository;
 import co.clean_architecture.r2dbc.mapper.UserMapper;
 import co.clean_architecture.r2dbc.repository.UserR2dbcRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
@@ -51,13 +53,23 @@ public class UserAdapter implements UserRepository {
     }
 
     @Override
-    public Mono<Boolean> existsById(Long id) {
-        return userR2dbcRepository.existsById(id);
-    }
-
-    @Override
     @Transactional
     public Mono<Void> updateUserStatus(Long id, String status) {
         return userR2dbcRepository.updateUserStatus(id, status);
+    }
+
+    @Override
+    public Mono<Boolean> usernameHasOccupied(Long id, String username) {
+        return userR2dbcRepository.usernameHasOccupied(id, username);
+    }
+
+    @Override
+    public Mono<Boolean> mailHasOccupied(Long id, String email) {
+        return userR2dbcRepository.mailHasOccupied(id, email);
+    }
+
+    @Override
+    public Flux<User> findByFilters(UserCriteria criteria) {
+        return null;
     }
 }
