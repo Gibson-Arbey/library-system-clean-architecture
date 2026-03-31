@@ -14,7 +14,7 @@ public class UserCriteria {
     private final List<String> statuses;
 
     private final Boolean applyFilterRole;
-    private final List<String> roleIds;
+    private final List<Long> roleIds;
 
     private final int limit;
     private final int offset;
@@ -26,7 +26,7 @@ public class UserCriteria {
             Boolean applyFilterStatus,
             List<String> statuses,
             Boolean applyFilterRole,
-            List<String> roleIds,
+            List<Long> roleIds,
             int limit,
             int offset) {
         this.username = username;
@@ -43,7 +43,7 @@ public class UserCriteria {
             String username,
             String mail,
             List<String> statuses,
-            List<String> roleIds,
+            List<Long> roleIds,
             Integer limit,
             Integer offset
     ) {
@@ -51,12 +51,12 @@ public class UserCriteria {
         boolean applyRole = roleIds != null && !roleIds.isEmpty();
 
         return new UserCriteria(
-                username,
-                mail,
+                username == null || username.isEmpty() ? "" : username,
+                mail == null || mail.isEmpty() ? "" : mail,
                 applyStatus,
-                statuses != null ? statuses : List.of(),
+                applyStatus ? statuses : List.of(""),
                 applyRole,
-                roleIds != null ? roleIds : List.of(),
+                applyRole ? roleIds : List.of(0L),
                 limit != null ? limit : 10,
                 offset != null ? offset : 0
         );

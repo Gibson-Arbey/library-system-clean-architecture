@@ -27,7 +27,7 @@ public class UserAdapter implements UserRepository {
 
     @Override
     public Mono<Boolean> existsByEmail(String email) {
-        return userR2dbcRepository.existsByEmail(email);
+        return userR2dbcRepository.existsByMail(email);
     }
 
     @Override
@@ -69,7 +69,16 @@ public class UserAdapter implements UserRepository {
     }
 
     @Override
-    public Flux<User> findByFilters(UserCriteria criteria) {
-        return null;
+    public Flux<User> findAllByFilters(UserCriteria criteria) {
+        return userR2dbcRepository.findAllByFilters(
+            criteria.getUsername(),
+            criteria.getMail(),
+            criteria.getApplyFilterStatus(),
+            criteria.getStatuses(),
+            criteria.getApplyFilterRole(),
+            criteria.getRoleIds(),
+            criteria.getLimit(),
+            criteria.getOffset()
+        ).map(userMapper::toDomain);
     }
 }

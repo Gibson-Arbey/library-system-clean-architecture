@@ -25,5 +25,5 @@ public interface UserRepository {
 
     Mono<Boolean> mailHasOccupied(Long id, String email);
 
-    Flux<User> findByFilters(UserCriteria criteria);
+    Flux<User> findAllByFilters(UserCriteria criteria);
 }
