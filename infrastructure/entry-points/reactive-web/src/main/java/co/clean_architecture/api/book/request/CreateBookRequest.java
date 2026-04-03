@@ -13,5 +13,6 @@ public class CreateBookRequest {
     int publicationYear;
     String publisher;
     Long categoryId;
+    Integer maxLoanDays;
     List<CreateBookCopyRequest> copies;
 }

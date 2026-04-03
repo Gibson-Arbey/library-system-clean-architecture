@@ -9,5 +9,6 @@ public record CreateBookCommand(
         int publicationYear,
         String publisher,
         Long categoryId,
+        Integer maxLaonDays,
         List<CreateBookCopyCommand> copies
 ) {}

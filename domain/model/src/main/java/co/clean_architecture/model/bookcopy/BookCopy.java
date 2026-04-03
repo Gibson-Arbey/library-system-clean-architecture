@@ -23,7 +23,7 @@ public class BookCopy {
     }
 
     public static BookCopy create(Long bookId, String barcode) {
-        return new BookCopy(null, bookId, barcode, StatusBookCopyEnum.AVALIABLE, LocalDateTime.now());
+        return new BookCopy(null, bookId, barcode, StatusBookCopyEnum.AVAILABLE, LocalDateTime.now());
     }
 
     public static BookCopy restore(Long id, Long bookId, String barcode, StatusBookCopyEnum status, LocalDateTime createdDate) {

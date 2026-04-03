@@ -1,6 +1,7 @@
 package co.clean_architecture.r2dbc.repository;
 
 import co.clean_architecture.r2dbc.entity.BookCopyEntity;
+import org.springframework.data.r2dbc.repository.Modifying;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
@@ -31,4 +32,12 @@ public interface BookCopyR2dbcRepository extends ReactiveCrudRepository<BookCopy
     Mono<Boolean> existsAllCopiesByStatusInAndBookId(
             @Param("status") List<String> status,
             @Param("bookId") Long bookId);
+
+    @Query("""
+        UPDATE bookcopies SET boco_status = :status WHERE boco_id = :bookCopyId
+    """)
+    @Modifying
+    Mono<Void> updateStatusById(
+            @Param("bookCopyId") Long bookCopyId,
+            @Param("status") String status);
 }

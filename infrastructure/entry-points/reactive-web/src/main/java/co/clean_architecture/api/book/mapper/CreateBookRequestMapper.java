@@ -16,6 +16,7 @@ public class CreateBookRequestMapper {
                 request.getPublicationYear(),
                 request.getPublisher(),
                 request.getCategoryId(),
+                request.getMaxLoanDays(),
                 request.getCopies().stream()
                         .map(copyReq -> new CreateBookCopyCommand(copyReq.getBarcode()))
                         .toList()

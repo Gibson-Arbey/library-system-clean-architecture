@@ -39,6 +39,9 @@ public class BookEntity {
     @Column("cate_id")
     private Long categoryId;
 
+    @Column("book_maxloandays")
+    private Integer maxLoanDays;
+
     @Column("book_createddate")
     private LocalDateTime createdDate;
 }

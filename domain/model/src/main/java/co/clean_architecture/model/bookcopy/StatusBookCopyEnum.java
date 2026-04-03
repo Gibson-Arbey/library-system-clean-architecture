@@ -1,7 +1,7 @@
 package co.clean_architecture.model.bookcopy;
 
 public enum StatusBookCopyEnum {
-    AVALIABLE,
+    AVAILABLE,
     BORROWED,
     RESERVED,
     LOST,

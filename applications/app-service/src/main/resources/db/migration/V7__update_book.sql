@@ -1,0 +1,2 @@
+ALTER TABLE books
+    ADD COLUMN IF NOT EXISTS book_maxloandays INTEGER DEFAULT 7;

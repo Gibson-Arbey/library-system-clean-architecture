@@ -34,10 +34,10 @@ public class BookCopyAdapter implements BookCopyRepository {
     }
 
     @Override
-    public Flux<BookCopy> findAllByBookIdAndStatus(Long bookId, String status) {
+    public Mono<Void> updateStatusByBookCopyId(Long bookId, String status) {
         return bookCopyR2dbcRepository
-            .findAllByBookIdAndStatus(bookId, status)
-            .map(bookCopyMapper::toDomain);
+            .updateStatusById(bookId, status)
+            .then();
     }
 
     @Override

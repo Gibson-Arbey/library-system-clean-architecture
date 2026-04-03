@@ -34,7 +34,8 @@ public class CreateBookWithCopiesUseCase {
                     command.isbn(),
                     command.publicationYear(),
                     command.publisher(),
-                    command.categoryId()
+                    command.categoryId(),
+                    command.maxLaonDays()
                 );
 
                 return bookRepository.save(book)

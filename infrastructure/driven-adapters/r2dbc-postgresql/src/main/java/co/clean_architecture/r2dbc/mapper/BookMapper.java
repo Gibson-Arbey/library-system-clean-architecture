@@ -19,6 +19,7 @@ public class BookMapper {
             .publicationYear(book.getPublicationYear())
             .publisher(book.getPublisher())
             .categoryId(book.getCategoryId())
+            .maxLoanDays(book.getMaxLoanDays())
             .createdDate(book.getCreatedDate())
             .build();
     }
@@ -35,6 +36,7 @@ public class BookMapper {
             bookEntity.getPublicationYear(),
             bookEntity.getPublisher(),
             bookEntity.getCategoryId(),
+            bookEntity.getMaxLoanDays(),
             bookEntity.getCreatedDate()
         );
     }

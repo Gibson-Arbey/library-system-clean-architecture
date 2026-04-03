@@ -20,9 +20,11 @@ public class Book {
 
     private final Long categoryId;
 
+    private final Integer maxLoanDays;
+
     private final LocalDateTime createdDate;
 
-    private Book (Long id, String title, String author, String isbn, int publicationYear, String publisher, Long categoryId, LocalDateTime createdDate) {
+    private Book (Long id, String title, String author, String isbn, int publicationYear, String publisher, Long categoryId, Integer maxLoanDays, LocalDateTime createdDate) {
 
         if (title == null || title.isBlank()) {
             throw new InvalidFieldException("Title cannot be null or blank");
@@ -44,6 +46,9 @@ public class Book {
             throw new InvalidFieldException("Publisher cannot be null or blank");
         }
 
+        if(maxLoanDays <= 0) {
+            throw new InvalidFieldException("Max loan days must be greater than 0");
+        }
         this.id = id;
         this.title = title;
         this.author = author;
@@ -51,15 +56,16 @@ public class Book {
         this.publicationYear = publicationYear;
         this.publisher = publisher;
         this.categoryId = categoryId;
+        this.maxLoanDays = maxLoanDays;
         this.createdDate = createdDate;
     }
 
-    public static Book create(String title, String author, String isbn, int publicationYear, String publisher, Long categoryId) {
-        return new Book(null, title, author, isbn, publicationYear, publisher, categoryId, LocalDateTime.now());
+    public static Book create(String title, String author, String isbn, int publicationYear, String publisher, Long categoryId, Integer maxLoanDays) {
+        return new Book(null, title, author, isbn, publicationYear, publisher, categoryId, maxLoanDays, LocalDateTime.now());
     }
 
-    public static Book restore(Long id, String title, String author, String isbn, int publicationYear, String publisher, Long categoryId, LocalDateTime createdDate) {
-        return new Book(id, title, author, isbn, publicationYear, publisher, categoryId, createdDate);
+    public static Book restore(Long id, String title, String author, String isbn, int publicationYear, String publisher, Long categoryId, Integer maxLoanDays, LocalDateTime createdDate) {
+        return new Book(id, title, author, isbn, publicationYear, publisher, categoryId, maxLoanDays, createdDate);
     }
 
     public Long getId() {
@@ -89,6 +95,8 @@ public class Book {
     public Long getCategoryId() {
         return categoryId;
     }
+
+    public Integer getMaxLoanDays() { return maxLoanDays; }
 
     public LocalDateTime getCreatedDate() {
         return createdDate;
