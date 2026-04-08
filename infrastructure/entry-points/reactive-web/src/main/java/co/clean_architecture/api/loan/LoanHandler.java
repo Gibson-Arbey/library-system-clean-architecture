@@ -6,6 +6,7 @@ import co.clean_architecture.api.loan.response.LoanResponse;
 import co.clean_architecture.model.loan.Loan;
 import co.clean_architecture.usecase.loan.BorrowBookUseCase;
 import co.clean_architecture.usecase.loan.GetAllByUserIdUseCase;
+import co.clean_architecture.usecase.loan.GetByBookCopyIdAndStatusUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public class LoanHandler {
 
     private final BorrowBookUseCase  borrowBookUseCase;
     private final GetAllByUserIdUseCase getAllByUserIdUseCase;
+    private final GetByBookCopyIdAndStatusUseCase getByBookCopyIdAndStatusUseCase;
 
     // Mappers
     private final CreateLoanRequestMapper createLoanRequestMapper;
@@ -35,6 +37,20 @@ public class LoanHandler {
         return ServerResponse
             .status(HttpStatus.OK)
             .body(getAllByUserIdUseCase.execute(userId).map(LoanResponse::fromDomain), LoanResponse.class);
+    }
+
+    public Mono<ServerResponse> getLoanByBookCopyIdAndStatus(ServerRequest request) {
+        Long bookCopyId = request.queryParam("bookCopyId")
+                .map(Long::valueOf)
+                .orElse(null);
+
+        String status = request.queryParam("status")
+                .map(String::valueOf)
+                .orElse(null);
+
+        return getByBookCopyIdAndStatusUseCase
+            .execute(bookCopyId, status)
+            .flatMap( loan -> toResponse(HttpStatus.OK, loan));
     }
 
 

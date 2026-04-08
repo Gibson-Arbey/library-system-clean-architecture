@@ -13,6 +13,7 @@ public class LoanRouter {
         return RouterFunctions.route()
             .POST("/api/v1/loan", loanHandler::createLoan)
             .GET("/api/v1/loan/user/{userId}", loanHandler::getAllLoansByUserId)
+            .GET("/api/v1/loan", loanHandler::getLoanByBookCopyIdAndStatus)
             .build();
     }
 
