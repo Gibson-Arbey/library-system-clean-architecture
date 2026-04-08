@@ -43,6 +43,11 @@ public class UserAdapter implements UserRepository {
     }
 
     @Override
+    public Mono<Boolean> existsById(Long id) {
+        return userR2dbcRepository.existsById(id);
+    }
+
+    @Override
     public Mono<Boolean> userStatusIsActive(Long id) {
         return userR2dbcRepository.userStatusIsActive(id);
     }

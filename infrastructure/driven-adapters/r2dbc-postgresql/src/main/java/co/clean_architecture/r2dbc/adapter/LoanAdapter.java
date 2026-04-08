@@ -7,6 +7,7 @@ import co.clean_architecture.r2dbc.repository.LoanR2dbcRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
@@ -22,5 +23,15 @@ public class LoanAdapter implements LoanRepository {
         return loanR2dbcRepository
             .save(loanMapper.toEntity(loan))
             .map(loanMapper::toDomain);
+    }
+
+    @Override
+    public Flux<Loan> getAllByUserId(Long userId) {
+        return loanR2dbcRepository.findAllByUserId(userId).map(loanMapper::toDomain);
+    }
+
+    @Override
+    public Mono<Loan> getByBookCopyIdAndStatus(Long bookCopyId, String status) {
+        return loanR2dbcRepository.findByBookCopyIdAndStatus(bookCopyId, status).map(loanMapper::toDomain);
     }
 }

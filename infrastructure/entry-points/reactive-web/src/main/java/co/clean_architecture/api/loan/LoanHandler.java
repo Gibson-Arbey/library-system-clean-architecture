@@ -2,8 +2,12 @@ package co.clean_architecture.api.loan;
 
 import co.clean_architecture.api.loan.mapper.CreateLoanRequestMapper;
 import co.clean_architecture.api.loan.request.CreateLoanRequest;
+import co.clean_architecture.api.loan.response.LoanResponse;
+import co.clean_architecture.model.loan.Loan;
 import co.clean_architecture.usecase.loan.BorrowBookUseCase;
+import co.clean_architecture.usecase.loan.GetAllByUserIdUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -14,6 +18,7 @@ import reactor.core.publisher.Mono;
 public class LoanHandler {
 
     private final BorrowBookUseCase  borrowBookUseCase;
+    private final GetAllByUserIdUseCase getAllByUserIdUseCase;
 
     // Mappers
     private final CreateLoanRequestMapper createLoanRequestMapper;
@@ -22,6 +27,20 @@ public class LoanHandler {
         return request.bodyToMono(CreateLoanRequest.class)
             .map(createLoanRequestMapper::toCommand)
             .flatMap(borrowBookUseCase::execute)
-            .flatMap(loan -> ServerResponse.ok().bodyValue(loan));
+            .flatMap(loan -> toResponse(HttpStatus.CREATED, loan));
+    }
+
+    public Mono<ServerResponse> getAllLoansByUserId(ServerRequest request) {
+        Long userId = Long.valueOf(request.pathVariable("userId"));
+        return ServerResponse
+            .status(HttpStatus.OK)
+            .body(getAllByUserIdUseCase.execute(userId).map(LoanResponse::fromDomain), LoanResponse.class);
+    }
+
+
+    private Mono<ServerResponse> toResponse(HttpStatus status, Loan loan) {
+        return ServerResponse
+                .status(status)
+                .bodyValue(LoanResponse.fromDomain(loan));
     }
 }
