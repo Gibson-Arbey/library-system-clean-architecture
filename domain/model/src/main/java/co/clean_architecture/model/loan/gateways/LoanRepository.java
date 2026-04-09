@@ -17,5 +17,9 @@ public interface LoanRepository {
 
     Flux<Loan> expireLoans(LocalDateTime dateTime);
 
+    Mono<Loan> findById(Long loanId);
+
+    Mono<Void> returnLoan(Long loanId);
+
 
 }

@@ -1,6 +1,7 @@
 package co.clean_architecture.r2dbc.repository;
 
 import co.clean_architecture.r2dbc.entity.LoanEntity;
+import org.springframework.data.r2dbc.repository.Modifying;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
@@ -25,10 +26,18 @@ public interface LoanR2dbcRepository extends ReactiveCrudRepository<LoanEntity, 
     );
 
     @Query("""
-        UPDATE loan SET status = 'EXPIRED'
-        WHERE due_date < :dateTime AND status = 'OVERDUE' RETURNING *;
+        UPDATE loans SET loan_status = 'EXPIRED'
+        WHERE loan_duedate < :dateTime AND loan_status = 'OVERDUE' RETURNING *;
     """)
     Flux<LoanEntity> expireLoans(
             @Param("dateTime") String dateTime
+    );
+
+    @Query("""
+        UPDATE loans SET loan_status = 'RETURNED', loan_returndate = CURRENT_TIMESTAMP
+        WHERE loan_id = :loanId;
+    """)
+    Mono<LoanEntity> returnedLoan(
+            @Param("loanId") Long loanId
     );
 }

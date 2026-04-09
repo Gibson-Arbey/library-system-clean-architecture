@@ -43,4 +43,15 @@ public class LoanAdapter implements LoanRepository {
         return loanR2dbcRepository.expireLoans(dateTime.toString()).map(loanMapper::toDomain);
     }
 
+    @Override
+    public Mono<Loan> findById(Long loanId) {
+        return loanR2dbcRepository.findById(loanId).map(loanMapper::toDomain);
+    }
+
+    @Override
+    @Transactional
+    public Mono<Void> returnLoan(Long loanId) {
+        return loanR2dbcRepository.returnedLoan(loanId).map(loanMapper::toDomain).then();
+    }
+
 }

@@ -34,9 +34,9 @@ public class BookCopyAdapter implements BookCopyRepository {
     }
 
     @Override
-    public Mono<Void> updateStatusByBookCopyId(Long bookId, String status) {
+    public Mono<Void> updateStatusByBookCopyId(Long bookCopyId, String status) {
         return bookCopyR2dbcRepository
-            .updateStatusById(bookId, status)
+            .updateStatusById(bookCopyId, status)
             .then();
     }
 
