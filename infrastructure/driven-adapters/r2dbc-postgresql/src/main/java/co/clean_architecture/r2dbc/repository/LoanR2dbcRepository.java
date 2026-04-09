@@ -23,4 +23,12 @@ public interface LoanR2dbcRepository extends ReactiveCrudRepository<LoanEntity, 
             @Param("bookCopyId") Long bookCopyId,
             @Param("status") String status
     );
+
+    @Query("""
+        UPDATE loan SET status = 'EXPIRED'
+        WHERE due_date < :dateTime AND status = 'OVERDUE' RETURNING *;
+    """)
+    Flux<LoanEntity> expireLoans(
+            @Param("dateTime") String dateTime
+    );
 }

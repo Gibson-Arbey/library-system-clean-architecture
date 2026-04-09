@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+
 @Repository
 @RequiredArgsConstructor
 public class LoanAdapter implements LoanRepository {
@@ -34,4 +36,11 @@ public class LoanAdapter implements LoanRepository {
     public Mono<Loan> getByBookCopyIdAndStatus(Long bookCopyId, String status) {
         return loanR2dbcRepository.findByBookCopyIdAndStatus(bookCopyId, status).map(loanMapper::toDomain);
     }
+
+    @Override
+    @Transactional
+    public Flux<Loan> expireLoans(LocalDateTime dateTime) {
+        return loanR2dbcRepository.expireLoans(dateTime.toString()).map(loanMapper::toDomain);
+    }
+
 }
