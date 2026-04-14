@@ -36,9 +36,11 @@ public class LoanHandler {
 
     public Mono<ServerResponse> getAllLoansByUserId(ServerRequest request) {
         Long userId = Long.valueOf(request.pathVariable("userId"));
-        return ServerResponse
-            .status(HttpStatus.OK)
-            .body(getAllByUserIdUseCase.execute(userId).map(LoanResponse::fromDomain), LoanResponse.class);
+        return getAllByUserIdUseCase.execute(userId)
+            .collectList()
+            .flatMap(loans ->
+                ServerResponse.ok().bodyValue(loans.stream().map(LoanResponse::fromDomain).toList())
+            );
     }
 
     public Mono<ServerResponse> getLoanByBookCopyIdAndStatus(ServerRequest request) {
@@ -58,7 +60,7 @@ public class LoanHandler {
     public Mono<ServerResponse> returnLoan(ServerRequest request) {
         Long loanId = Long.valueOf(request.pathVariable("loanId"));
         return returnLoanUseCase.execute(loanId)
-            .then(ServerResponse.noContent().build());
+                .then(ServerResponse.ok().build());
     }
 
     private Mono<ServerResponse> toResponse(HttpStatus status, Loan loan) {

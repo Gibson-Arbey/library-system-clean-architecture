@@ -45,13 +45,13 @@ public class LoanAdapter implements LoanRepository {
 
     @Override
     public Mono<Loan> findById(Long loanId) {
-        return loanR2dbcRepository.findById(loanId).map(loanMapper::toDomain);
+        return loanR2dbcRepository.findByLoanId(loanId).map(loanMapper::toDomain);
     }
 
     @Override
     @Transactional
-    public Mono<Void> returnLoan(Long loanId) {
-        return loanR2dbcRepository.returnedLoan(loanId).map(loanMapper::toDomain).then();
+    public Mono<Void> returnLoan(Long loanId, LocalDateTime dateTime) {
+        return loanR2dbcRepository.returnedLoan(loanId, dateTime).then();
     }
 
 }

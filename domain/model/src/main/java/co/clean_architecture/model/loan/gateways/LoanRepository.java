@@ -19,7 +19,7 @@ public interface LoanRepository {
 
     Mono<Loan> findById(Long loanId);
 
-    Mono<Void> returnLoan(Long loanId);
+    Mono<Void> returnLoan(Long loanId, LocalDateTime dateTime);
 
 
 }

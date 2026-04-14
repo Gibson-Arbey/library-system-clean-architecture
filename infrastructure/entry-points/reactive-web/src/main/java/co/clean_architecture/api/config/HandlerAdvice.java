@@ -31,27 +31,19 @@ public class HandlerAdvice {
                 .message(ex.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();
-        log.error(errorResponse.toString());
 
-        return Mono.just(
-                ResponseEntity.status(status).body(
-                        errorResponse
-                )
-        );
+        log.error("Domain error", ex);
+        return Mono.just(ResponseEntity.status(status).body(errorResponse));
     }
 
     @ExceptionHandler(Exception.class)
     public Mono<ResponseEntity<ErrorResponse>> handleGeneric(Exception ex) {
         log.error("Unhandled error", ex);
-        return Mono.just(
-                ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body(
-                                ErrorResponse.builder()
-                                        .code("INTERNAL_ERROR")
-                                        .message(ex.getMessage())
-                                        .timestamp(LocalDateTime.now())
-                                        .build()
-                        )
-        );
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .code("INTERNAL_ERROR")
+                .message(ex.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+        return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse));
     }
 }
